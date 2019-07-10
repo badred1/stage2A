@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/betail"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ beteItem.reference }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onDeleteBete()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col no-padding>
+        <ion-img [src]="beteItem.imgURL"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h1 text-center>{{ beteItem.reference }}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item>
+            <div class="ion-text-start">
+              <strong>Race :</strong>
+              {{ beteItem.race }}
+            </div>
+          </ion-item>
+          <ion-item>
+            <div class="ion-text-start">
+              <strong>Age :</strong>
+              {{ beteItem.age }}
+            </div>
+          </ion-item>
+          <ion-item>
+            <div class="ion-text-start">
+              <strong>Poids :</strong>
+              {{ beteItem.poids }}
+            </div>
+          </ion-item>
+          <ion-item>
+            <div class="ion-text-start">
+              <strong>Proprietaire :</strong>
+              {{ beteItem.proprietaire }}
+            </div>
+          </ion-item>
+          <ion-item>
+            <div class="ion-text-start">
+              <strong>Origine :</strong>
+              {{ beteItem.origine }}
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-tabs>
+        <ion-tab-bar slot="bottom" color="primary">
+          <ion-tab-button tab="schedule">
+            <ion-icon name="logo-usd"></ion-icon>
+            <ion-label>Declarer vente</ion-label>
+          </ion-tab-button>
+
+          <ion-tab-button tab="speakers">
+            <ion-icon name="close-circle"></ion-icon>
+            <ion-label>Declarer abattage</ion-label>
+          </ion-tab-button>
+
+        </ion-tab-bar>
+      </ion-tabs>
+    </ion-row>
+  </ion-grid>
+</ion-content>
