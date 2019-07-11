@@ -1,9 +1,12 @@
-export interface Bete {
-  reference: string;
-  origine: string;
-  age: string;
-  poids: string;
-  race: string;
-  proprietaire: string;
-  imgURL: string;
+export class Bete {
+  constructor(
+    public reference: string,
+    public origine: string,
+    public age: string,
+    public poids: string,
+    public race: string,
+    public proprietaire: string,
+    public  imgURL: string,
+  ){}
+ 
 }

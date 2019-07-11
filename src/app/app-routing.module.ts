@@ -1,23 +1,24 @@
-import { NgModule } from "@angular/core";
-import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: "", redirectTo: "betail", pathMatch: "full" },
+  { path: '', redirectTo: 'betail', pathMatch: 'full' },
   {
-    path: "betail",
+    path: 'betail',
     children: [
       {
-        path: "",
-        loadChildren: "./betail/betail.module#BetailPageModule"
+        path: '',
+        loadChildren: './betail/betail.module#BetailPageModule'
       },
       {
-        path: ":beteId",
+        path: ':beteId',
         loadChildren:
-          "./betail/bete-detail/bete-detail.module#BeteDetailPageModule"
+          './betail/bete-detail/bete-detail.module#BeteDetailPageModule'
       }
     ]
-  }
-  
+  },  { path: 'new-betail', loadChildren: './betail/new-betail/new-betail.module#NewBetailPageModule' }
+
+
 ];
 
 @NgModule({
