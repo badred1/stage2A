@@ -1,80 +1,75 @@
-import { BeteService } from './../../bete.service';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoadingController } from '@ionic/angular';
-import { switchMap } from 'rxjs/operators';
-
+import { BeteService } from "./../../bete.service";
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { LoadingController } from "@ionic/angular";
+import { switchMap } from "rxjs/operators";
 
 @Component({
-  selector: 'app-new-betail',
-  templateUrl: './new-betail.page.html',
-  styleUrls: ['./new-betail.page.scss'],
+  selector: "app-new-betail",
+  templateUrl: "./new-betail.page.html",
+  styleUrls: ["./new-betail.page.scss"]
 })
 export class NewBetailPage implements OnInit {
-
   form: FormGroup;
 
-
-  constructor(private beteService: BeteService, private loadingCtrl: LoadingController) { }
+  constructor(
+    private beteService: BeteService,
+    private loadingCtrl: LoadingController
+  ) {}
 
   ngOnInit() {
     this.form = new FormGroup({
       Nom: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: "blur",
         validators: [Validators.required]
       }),
       Race: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required, Validators.maxLength(180)]
+        updateOn: "blur",
+        validators: [Validators.required]
       }),
       Age: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required, Validators.min(0)]
+        updateOn: "blur",
+        validators: [Validators.required]
       }),
       Poids: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: "blur",
         validators: [Validators.required]
       }),
       Propri: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: "blur",
         validators: [Validators.required]
       }),
       Origine: new FormControl(null, {
-        updateOn: 'blur',
+        updateOn: "blur",
         validators: [Validators.required]
-      }),
-
-
-
+      })
     });
-
   }
 
- /* onCreateBetail() {
-    if (!this.form.valid ) {
+  onCreateBetail() {
+    if (!this.form.valid) {
       return;
     }
     this.loadingCtrl
       .create({
-        message: 'Creating place...'
+        keyboardClose: true,
+        message: "Creation ..."
       })
       .then(loadingEl => {
         loadingEl.present();
-        this.beteService.addBete(
-          this.form.value.Origine,
-              this.form.value.Age,
-              this.form.value.Poids,
+        setTimeout(() => {
+          this.loadingCtrl.dismiss();
+          this.beteService.addBete(
+            this.form.value.Origine,
+            this.form.value.Age,
+            this.form.value.Poids,
 
+            this.form.value.Race,
+            this.form.value.Propri
+          );
+        }, 1500);
+      });
 
-              this.form.value.Race,
-              this.form.value.Propri,
-
-
-            );
-          });
-         
-
-
-
-  }*/
+  }
+  
 }

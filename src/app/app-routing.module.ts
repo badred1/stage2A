@@ -16,8 +16,10 @@ const routes: Routes = [
           './betail/bete-detail/bete-detail.module#BeteDetailPageModule'
       }
     ]
-  },  { path: 'new-betail', loadChildren: './betail/new-betail/new-betail.module#NewBetailPageModule' }
-
+  },
+  { path: 'new-betail', loadChildren: './betail/new-betail/new-betail.module#NewBetailPageModule' },
+  { path: 'edit-betail/:beteId', loadChildren: './betail/edit-betail/edit-betail.module#EditBetailPageModule' }
+  
 
 ];
 

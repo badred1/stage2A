@@ -20,12 +20,12 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col size-sm="6" offset-sm="3">
         <h1 text-center>{{ beteItem.reference }}</h1>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col size-sm="6" offset-sm="3">
         <ion-list>
           <ion-item>
             <div class="ion-text-start">
@@ -60,21 +60,37 @@
         </ion-list>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-tabs>
-        <ion-tab-bar slot="bottom" color="primary">
-          <ion-tab-button tab="schedule">
-            <ion-icon name="logo-usd"></ion-icon>
-            <ion-label>Declarer vente</ion-label>
-          </ion-tab-button>
+    <!-- <ion-row>
+      <ion-col>
+          <ion-fab vertical="bottom" horizontal="end">
+              <ion-fab-button>Declarer</ion-fab-button>
+            
+              <ion-fab-list side="top">
+                <ion-fab-button>
+                  <ion-icon name="trash"></ion-icon>
+                </ion-fab-button>
 
-          <ion-tab-button tab="speakers">
-            <ion-icon name="close-circle"></ion-icon>
-            <ion-label>Declarer abattage</ion-label>
-          </ion-tab-button>
-
-        </ion-tab-bar>
-      </ion-tabs>
-    </ion-row>
+              </ion-fab-list>
+            
+              <ion-fab-list side="start">
+                <ion-fab-button>Vimeo</ion-fab-button>
+              </ion-fab-list>
+            
+            </ion-fab>
+      </ion-col>
+    </ion-row> -->
   </ion-grid>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button color="success" (click)="onSell()" ><ion-icon name="logo-usd"></ion-icon
+      ></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="end">
+      <ion-fab-button color="danger" (click)="onKill()"><ion-icon name="power"></ion-icon
+      ></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

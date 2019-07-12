@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { Routes, RouterModule } from "@angular/router";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { BeteDetailPage } from './bete-detail.page';
+import { BeteDetailPage } from "./bete-detail.page";
+import { VenteComponent } from "../vente/vente.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: BeteDetailPage
   }
 ];
@@ -19,8 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [BeteDetailPage]
+  declarations: [BeteDetailPage, VenteComponent],
+  entryComponents: [VenteComponent]
 })
 export class BeteDetailPageModule {}

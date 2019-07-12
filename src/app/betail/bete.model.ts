@@ -1,6 +1,7 @@
 export class Bete {
   constructor(
     public reference: string,
+    public categorie: string,
     public origine: string,
     public age: string,
     public poids: string,

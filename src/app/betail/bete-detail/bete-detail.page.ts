@@ -2,7 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BeteService } from "src/app/bete.service";
 import { Bete } from "../bete.model";
-import { AlertController } from "@ionic/angular";
+import {
+  AlertController,
+  PopoverController,
+  LoadingController
+} from "@ionic/angular";
+import { VenteComponent } from "../vente/vente.component";
 
 @Component({
   selector: "app-bete-detail",
@@ -16,7 +21,9 @@ export class BeteDetailPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private beteService: BeteService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private popoverController: PopoverController,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -53,5 +60,61 @@ export class BeteDetailPage implements OnInit {
       .then(alertEl => {
         alertEl.present();
       });
+  }
+
+  onSell() {
+    this.popoverController
+      .create({
+        component: VenteComponent,
+        cssClass: "popover_class",
+        translucent: true,
+        componentProps: { selectedBete: this.beteItem }
+      })
+      .then(popEl => {
+        popEl.present();
+        return popEl.onWillDismiss();
+      })
+      .then(resultData => {
+        if (resultData.role === "confirm") {
+          this.loadingCtrl
+            .create({
+              keyboardClose: true,
+              message: "Changement de proprietaire..."
+            })
+            .then(loadingEl => {
+              loadingEl.present();
+              setTimeout(() => {
+                this.loadingCtrl.dismiss();
+              }, 1500);
+            });
+          console.log(resultData.data.newProp);
+          this.beteItem.proprietaire = resultData.data.newProp;
+        }
+      });
+  }
+
+  onKill(){
+    this.alertController
+    .create({
+      header: "Confirmation de l'abattage",
+      message:
+        "Confirmez-vous que " + this.beteItem.reference + " a bien été envoyé a l'abatoire ? ",
+      buttons: [
+        {
+          text: "Annuler",
+          role: "cancel"
+        },
+        {
+          text: "Confirmer",
+          handler: () => {
+            this.beteService.deleteBete(this.beteItem.reference);
+            this.router.navigate(["/betail"]);
+          }
+        }
+      ]
+    })
+    .then(alertEl => {
+      alertEl.present();
+    });
   }
 }
