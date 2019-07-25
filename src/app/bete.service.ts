@@ -105,12 +105,14 @@ export class BeteService {
     poids: string,
     race: string,
     proprietaire: string,
+    imgUrl:string,
     location:PlaceLocation
   ) {
     let newBete: Bete;
-    const imgUrl =
+    /*const imgUrl =
       "https://www.rustica.fr//images/ouv-chevre-ch120608-060-1435746972-l750-h512.jpg";
-    newBete = new Bete(
+    */
+      newBete = new Bete(
       Math.random().toString(),
       null,
       origine,
