@@ -35,25 +35,25 @@ export class VenteComponent implements OnInit {
       return;
     }
     this.popCtrl.dismiss({newProp: this.form.value.Nom},'confirm');
-    // this.loadingCtrl
-    //   .create({
-    //     keyboardClose: true,
-    //     message: "Enregistrement"
-    //   })
-    //   .then(loadingEl => {
-    //     loadingEl.present();
-    //     setTimeout(() => {
-    //       this.loadingCtrl.dismiss();
-    //       this.beteService.addBete(
-    //         this.form.value.Origine,
-    //         this.form.value.Age,
-    //         this.form.value.Poids,
+    this.loadingCtrl
+      .create({
+        keyboardClose: true,
+        message: "Enregistrement"
+      })
+      .then(loadingEl => {
+        loadingEl.present();
+        setTimeout(() => {
+          this.loadingCtrl.dismiss();
+          this.beteService.addBete(
+            this.form.value.Origine,
+            this.form.value.Age,
+            this.form.value.Poids,
 
-    //         this.form.value.Race,
-    //         this.form.value.Propri
-    //       );
-    //     }, 1500);
-    //   });
+            this.form.value.Race,
+            this.form.value.Propri
+          );
+        }, 1500);
+      });
   }
   onCancel() {
     this.popCtrl.dismiss(null,'cancel');

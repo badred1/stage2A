@@ -2,7 +2,7 @@ import { BeteService } from "./../../bete.service";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { LoadingController } from "@ionic/angular";
-import { switchMap } from "rxjs/operators";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-new-betail",
@@ -14,7 +14,8 @@ export class NewBetailPage implements OnInit {
 
   constructor(
     private beteService: BeteService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -57,19 +58,19 @@ export class NewBetailPage implements OnInit {
       })
       .then(loadingEl => {
         loadingEl.present();
-        setTimeout(() => {
-          this.loadingCtrl.dismiss();
-          this.beteService.addBete(
+        this.beteService
+          .addBete(
             this.form.value.Origine,
             this.form.value.Age,
             this.form.value.Poids,
-
             this.form.value.Race,
             this.form.value.Propri
-          );
-        }, 1500);
+          )
+          .subscribe(() => {
+            loadingEl.dismiss();
+            this.form.reset();
+            this.router.navigate(['/betail']);
+          });
       });
-
   }
-  
 }

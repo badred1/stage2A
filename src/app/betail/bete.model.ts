@@ -7,7 +7,6 @@ export class Bete {
     public poids: string,
     public race: string,
     public proprietaire: string,
-    public  imgURL: string,
-  ){}
- 
+    public imgURL: string
+  ) {}
 }

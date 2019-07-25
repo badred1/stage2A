@@ -1,28 +1,33 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Bete } from "../bete.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { BeteService } from "src/app/bete.service";
 import { LoadingController } from "@ionic/angular";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-edit-betail",
   templateUrl: "./edit-betail.page.html",
   styleUrls: ["./edit-betail.page.scss"]
 })
-export class EditBetailPage implements OnInit {
+export class EditBetailPage implements OnInit, OnDestroy {
   beteItem: Bete;
   form: FormGroup;
+  beteSub: Subscription;
 
   constructor(
     private beteService: BeteService,
     private loadingCtrl: LoadingController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
-      this.beteItem = this.beteService.getBete(paramMap.get("beteId"));
+      this.beteService.getBete(paramMap.get("beteId")).subscribe(bete => {
+        this.beteItem = bete;
+      });
       this.form = new FormGroup({
         Nom: new FormControl(this.beteItem.reference, {
           updateOn: "blur",
@@ -52,7 +57,7 @@ export class EditBetailPage implements OnInit {
     });
   }
 
-  onCreateBetail() {
+  onEditBetail() {
     if (!this.form.valid) {
       return;
     }
@@ -63,10 +68,8 @@ export class EditBetailPage implements OnInit {
       })
       .then(loadingEl => {
         loadingEl.present();
-        setTimeout(() => {
-          this.loadingCtrl.dismiss();
-          this.beteService.deleteBete(this.beteItem.reference);
-          this.beteService.addBeteWithId(
+        this.beteService
+          .updateBete(
             this.beteItem.reference,
             this.form.value.Origine,
             this.form.value.Age,
@@ -74,8 +77,17 @@ export class EditBetailPage implements OnInit {
             this.form.value.Race,
             this.form.value.Propri,
             this.beteItem.imgURL
-          );
-        }, 1500);
+          )
+          .subscribe(() => {
+            loadingEl.dismiss();
+            this.form.reset();
+            this.router.navigate(['/betail']);
+          });
       });
+  }
+  ngOnDestroy() {
+    if (this.beteSub) {
+      this.beteSub.unsubscribe();
+    }
   }
 }

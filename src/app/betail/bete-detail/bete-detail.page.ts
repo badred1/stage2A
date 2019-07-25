@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BeteService } from "src/app/bete.service";
 import { Bete } from "../bete.model";
@@ -8,14 +8,16 @@ import {
   LoadingController
 } from "@ionic/angular";
 import { VenteComponent } from "../vente/vente.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-bete-detail",
   templateUrl: "./bete-detail.page.html",
   styleUrls: ["./bete-detail.page.scss"]
 })
-export class BeteDetailPage implements OnInit {
+export class BeteDetailPage implements OnInit, OnDestroy {
   beteItem: Bete;
+  sub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,34 +35,36 @@ export class BeteDetailPage implements OnInit {
         return;
       }
       const beteId = paramMap.get("beteId");
-      this.beteItem = this.beteService.getBete(beteId);
+      this.sub = this.beteService.getBete(beteId).subscribe(bete => {
+        this.beteItem = bete;
+      });
     });
   }
 
-  onDeleteBete() {
-    this.alertController
-      .create({
-        header: "Etes-vous sur ?",
-        message:
-          "Voulez-vous vraiment supprimer " + this.beteItem.reference + " ?",
-        buttons: [
-          {
-            text: "Annuler",
-            role: "cancel"
-          },
-          {
-            text: "Supprimer",
-            handler: () => {
-              this.beteService.deleteBete(this.beteItem.reference);
-              this.router.navigate(["/betail"]);
-            }
-          }
-        ]
-      })
-      .then(alertEl => {
-        alertEl.present();
-      });
-  }
+  // onDeleteBete() {
+  //   this.alertController
+  //     .create({
+  //       header: "Etes-vous sur ?",
+  //       message:
+  //         "Voulez-vous vraiment supprimer " + this.beteItem.reference + " ?",
+  //       buttons: [
+  //         {
+  //           text: "Annuler",
+  //           role: "cancel"
+  //         },
+  //         {
+  //           text: "Supprimer",
+  //           handler: () => {
+  //             this.beteService.deleteBete(this.beteItem.reference);
+  //             this.router.navigate(["/betail"]);
+  //           }
+  //         }
+  //       ]
+  //     })
+  //     .then(alertEl => {
+  //       alertEl.present();
+  //     });
+  // }
 
   onSell() {
     this.popoverController
@@ -93,28 +97,36 @@ export class BeteDetailPage implements OnInit {
       });
   }
 
-  onKill(){
-    this.alertController
-    .create({
-      header: "Confirmation de l'abattage",
-      message:
-        "Confirmez-vous que " + this.beteItem.reference + " a bien été envoyé a l'abatoire ? ",
-      buttons: [
-        {
-          text: "Annuler",
-          role: "cancel"
-        },
-        {
-          text: "Confirmer",
-          handler: () => {
-            this.beteService.deleteBete(this.beteItem.reference);
-            this.router.navigate(["/betail"]);
-          }
-        }
-      ]
-    })
-    .then(alertEl => {
-      alertEl.present();
-    });
+  // onKill() {
+  //   this.alertController
+  //     .create({
+  //       header: "Confirmation de l'abattage",
+  //       message:
+  //         "Confirmez-vous que " +
+  //         this.beteItem.reference +
+  //         " a bien été envoyé a l'abatoire ? ",
+  //       buttons: [
+  //         {
+  //           text: "Annuler",
+  //           role: "cancel"
+  //         },
+  //         {
+  //           text: "Confirmer",
+  //           handler: () => {
+  //             this.beteService.deleteBete(this.beteItem.reference);
+  //             this.router.navigate(["/betail"]);
+  //           }
+  //         }
+  //       ]
+  //     })
+  //     .then(alertEl => {
+  //       alertEl.present();
+  //     });
+  // }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
