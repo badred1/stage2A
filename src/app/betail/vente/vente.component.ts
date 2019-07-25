@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BeteService } from 'src/app/bete.service';
-import { LoadingController, PopoverController } from '@ionic/angular';
-import { Bete } from '../bete.model';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { BeteService } from "src/app/bete.service";
+import { LoadingController, PopoverController } from "@ionic/angular";
+import { Bete } from "../bete.model";
 
 @Component({
   selector: "app-vente",
@@ -10,7 +10,7 @@ import { Bete } from '../bete.model';
   styleUrls: ["./vente.component.scss"]
 })
 export class VenteComponent implements OnInit {
-@Input() selectedBete: Bete;
+  @Input() selectedBete: Bete;
 
   form: FormGroup;
 
@@ -26,7 +26,6 @@ export class VenteComponent implements OnInit {
         updateOn: "blur",
         validators: [Validators.required]
       })
-      
     });
   }
 
@@ -34,7 +33,7 @@ export class VenteComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    this.popCtrl.dismiss({newProp: this.form.value.Nom},'confirm');
+    this.popCtrl.dismiss({ newProp: this.form.value.Nom }, "confirm");
     this.loadingCtrl
       .create({
         keyboardClose: true,
@@ -42,20 +41,23 @@ export class VenteComponent implements OnInit {
       })
       .then(loadingEl => {
         loadingEl.present();
-        setTimeout(() => {
-          this.loadingCtrl.dismiss();
-          this.beteService.addBete(
-            this.form.value.Origine,
-            this.form.value.Age,
-            this.form.value.Poids,
-
-            this.form.value.Race,
-            this.form.value.Propri
-          );
-        }, 1500);
+        this.beteService.updateBete(
+          this.selectedBete.reference,
+          this.selectedBete.origine,
+          this.selectedBete.age,
+          this.selectedBete.poids,
+          this.selectedBete.race,
+          this.form.value.Nom,
+          this.selectedBete.imgURL,
+          this.selectedBete.location
+        ).subscribe(()=>
+        {
+          loadingEl.dismiss();
+          this.form.reset();
+        });
       });
   }
   onCancel() {
-    this.popCtrl.dismiss(null,'cancel');
+    this.popCtrl.dismiss(null, "cancel");
   }
 }

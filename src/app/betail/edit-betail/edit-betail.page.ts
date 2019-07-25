@@ -5,6 +5,8 @@ import { BeteService } from "src/app/bete.service";
 import { LoadingController } from "@ionic/angular";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { PlaceLocation } from '../location.model';
+
 
 @Component({
   selector: "app-edit-betail",
@@ -52,9 +54,16 @@ export class EditBetailPage implements OnInit, OnDestroy {
         Origine: new FormControl(this.beteItem.origine, {
           updateOn: "blur",
           validators: [Validators.required]
+        }),
+        Location:new FormControl(null, {
+          validators: [Validators.required]
         })
       });
     });
+  }
+
+  onLocationPicked(location: PlaceLocation) {
+    this.form.patchValue({ Location: location });
   }
 
   onEditBetail() {
@@ -76,7 +85,8 @@ export class EditBetailPage implements OnInit, OnDestroy {
             this.form.value.Poids,
             this.form.value.Race,
             this.form.value.Propri,
-            this.beteItem.imgURL
+            this.beteItem.imgURL,
+            this.form.value.location
           )
           .subscribe(() => {
             loadingEl.dismiss();
