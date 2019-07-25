@@ -1,11 +1,23 @@
 import { Injectable } from "@angular/core";
 import { Bete } from "./betail/bete.model";
 
+import { BehaviorSubject } from "rxjs";
+import { take, map, tap, delay } from "rxjs/operators";
+import { PlaceLocation } from './betail/location.model';
+
+
 @Injectable({
   providedIn: "root"
 })
 export class BeteService {
-  betes: Bete[] = [
+
+  defautlocation : PlaceLocation={
+    lat: -54,
+    lng: 58,
+    address: "xxx",
+   staticMapImageUrl: "xxx"}
+
+  betes = new BehaviorSubject<Bete[]>([
     {
       reference: "r1",
       categorie: null,
@@ -15,7 +27,8 @@ export class BeteService {
       age: "8 ans",
       poids: "50kg",
       proprietaire: "XXX",
-      race: "Mouton"
+      race: "Mouton",
+      location:this.defautlocation
     },
     {
       reference: "r2",
@@ -26,7 +39,8 @@ export class BeteService {
       age: "7 ans",
       poids: "100kg",
       proprietaire: "XXX",
-      race: "Boeuf"
+      race: "Boeuf",
+      location:this.defautlocation
     },
     {
       reference: "r3",
@@ -37,7 +51,8 @@ export class BeteService {
       age: "3 ans",
       poids: "30kg",
       proprietaire: "XXX",
-      race: "chevre"
+      race: "chevre",
+      location:this.defautlocation
     },
     {
       reference: "r4",
@@ -48,7 +63,8 @@ export class BeteService {
       age: "12ans",
       poids: "120kg",
       proprietaire: "XXX",
-      race: "Vache"
+      race: "Vache",
+      location:this.defautlocation
     },
     {
       reference: "r5",
@@ -58,35 +74,38 @@ export class BeteService {
       age: "15 ans",
       poids: "100kg",
       proprietaire: "XXX",
-      race: "Cheval"
+      race: "Cheval",
+      location:this.defautlocation
     }
-  ];
+  ]);
 
   constructor() {}
 
   getAllBetes() {
-    return [...this.betes];
+    return this.betes.asObservable();
   }
 
   getBete(beteId: string) {
-    return {
-      ...this.betes.find(bete => {
-        return bete.reference === beteId;
+    return this.betes.pipe(
+      take(1),
+      map(betes => {
+        return { ...betes.find(b => b.reference === beteId) };
       })
-    };
+    );
   }
 
-  deleteBete(beteId: string) {
-    this.betes = this.betes.filter(bete => {
-      return bete.reference !== beteId;
-    });
-  }
+  // deleteBete(beteId: string) {
+  //   this.betes = this.betes.filter(bete => {
+  //     return bete.reference !== beteId;
+  //   });
+  // }
   addBete(
     origine: string,
     age: string,
     poids: string,
     race: string,
-    proprietaire: string
+    proprietaire: string,
+    location:PlaceLocation
   ) {
     let newBete: Bete;
     const imgUrl =
@@ -99,31 +118,51 @@ export class BeteService {
       poids,
       race,
       proprietaire,
-      imgUrl
+      imgUrl,
+      location
     );
-    this.betes.push(newBete);
+    return this.betes.pipe(
+      take(1),
+      delay(1000),
+      tap(betes => {
+        this.betes.next(betes.concat(newBete));
+        console.log(newBete.location.address)
+      })
+    );
   }
-  addBeteWithId(
+
+  updateBete(
     reference: string,
     origine: string,
     age: string,
     poids: string,
     race: string,
     proprietaire: string,
-    imgURL: string
+    imgURL: string,
+    location:PlaceLocation
   ) {
-    let newBete: Bete;
-
-    newBete = new Bete(
-      reference,
-      null,
-      origine,
-      age,
-      poids,
-      race,
-      proprietaire,
-      imgURL
+    return this.betes.pipe(
+      take(1),
+      delay(1000),
+      tap(betes => {
+        const updatedBeteIndex = betes.findIndex(
+          bete => bete.reference === reference
+        );
+        const updatedBetes = [...betes];
+        const oldBete = updatedBetes[updatedBeteIndex];
+        updatedBetes[updatedBeteIndex] = new Bete(
+          oldBete.reference,
+          null,
+          origine,
+          age,
+          poids,
+          race,
+          proprietaire,
+          imgURL,
+          location
+        );
+        this.betes.next(updatedBetes);
+      })
     );
-    this.betes.push(newBete);
   }
 }

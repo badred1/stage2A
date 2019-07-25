@@ -1,3 +1,4 @@
+import { PlaceLocation } from "./location.model";
 export class Bete {
   constructor(
     public reference: string,
@@ -7,7 +8,7 @@ export class Bete {
     public poids: string,
     public race: string,
     public proprietaire: string,
-    public  imgURL: string,
-  ){}
- 
+    public imgURL: string,
+    public location: PlaceLocation
+  ) {}
 }
