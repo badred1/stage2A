@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { BeteService } from "src/app/bete.service";
 import { LoadingController } from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
+import { PlaceLocation } from '../location.model';
 
 @Component({
   selector: "app-edit-betail",
@@ -47,9 +48,16 @@ export class EditBetailPage implements OnInit {
         Origine: new FormControl(this.beteItem.origine, {
           updateOn: "blur",
           validators: [Validators.required]
+        }),
+        Location:new FormControl(null, {
+          validators: [Validators.required]
         })
       });
     });
+  }
+
+  onLocationPicked(location: PlaceLocation) {
+    this.form.patchValue({ Location: location });
   }
 
   onCreateBetail() {
@@ -73,7 +81,9 @@ export class EditBetailPage implements OnInit {
             this.form.value.Poids,
             this.form.value.Race,
             this.form.value.Propri,
-            this.beteItem.imgURL
+            this.beteItem.imgURL,
+            this.form.value.Location
+
           );
         }, 1500);
       });

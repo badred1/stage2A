@@ -1,89 +1,87 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Ajouter betail</ion-title>
-      <ion-buttons slot="primary">
-        <ion-button (click)="onCreateBetail()" [disabled]="!form.valid">
-          <ion-icon name="checkmark" slot="icon-only"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-      <form [formGroup]="form">
-          <ion-grid>
-            <ion-row>
-              <ion-col size-sm="6" offset-sm="3">
-                <ion-item>
-                  <ion-label position="floating">Nom</ion-label>
-                  <ion-input
-                    type="text"
-                    autocomplete
-                    autocorrect
-                    formControlName="Nom"
-                    disabled
-                  ></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size-sm="6" offset-sm="3">
-                <ion-item>
-                  <ion-label position="floating">Race</ion-label>
-                  <ion-input type="text" formControlName="Race"></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row *ngIf="!form.get('Race').valid && form.get('Race').touched">
-              <ion-col size-sm="6" offset-sm="3">
-                <p>Entrez une race</p>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size-sm="6" offset-sm="3">
-                <ion-item>
-                  <ion-label position="floating">Propri</ion-label>
-                  <ion-input type="text" formControlName="Propri"></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size-sm="3" offset-sm="3">
-                <ion-item>
-                  <ion-label position="floating">Poids</ion-label>
-                  <ion-input formControlName="Poids"></ion-input>
-                </ion-item>
-              </ion-col>
-              <ion-col size-sm="3">
-                <ion-item>
-                  <ion-label position="floating">Age</ion-label>
-                  <ion-input formControlName="Age"></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col size-sm="6" offset-sm="3">
-                  <ion-item>
-                    <ion-label position="floating">Origine</ion-label>
-                    <ion-input type="text" formControlName="Origine"></ion-input>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-            <!-- <ion-row>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ajouter betail</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCreateBetail()" [disabled]="!form.valid">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Nom</ion-label>
+            <ion-input
+              type="text"
+              autocomplete
+              autocorrect
+              formControlName="Nom"
+              disabled
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Race</ion-label>
+            <ion-input type="text" formControlName="Race"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.get('Race').valid && form.get('Race').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Entrez une race</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Propri</ion-label>
+            <ion-input type="text" formControlName="Propri"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Poids</ion-label>
+            <ion-input formControlName="Poids"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="3">
+          <ion-item>
+            <ion-label position="floating">Age</ion-label>
+            <ion-input formControlName="Age"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Origine</ion-label>
+            <ion-input type="text" formControlName="Origine"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <app-location-v2
+            [showPreview]="form.get('Location').value"
+            (locationPick)="onLocationPicked($event)"
+          ></app-location-v2>
+        </ion-col>
+      </ion-row>
+
+      <!-- <ion-row>
               <ion-col size-sm="6" offset-sm="3">
                 <app-location-picker
                   [showPreview]="form.get('location').value"
@@ -99,10 +97,6 @@
                 ></app-image-picker>
               </ion-col>
             </ion-row> -->
-  
-  
-          </ion-grid>
-  
-        </form>
-  </ion-content>
-  
+    </ion-grid>
+  </form>
+</ion-content>

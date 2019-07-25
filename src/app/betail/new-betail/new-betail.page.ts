@@ -1,3 +1,4 @@
+import { PlaceLocation } from './../location.model';
 import { BeteService } from "./../../bete.service";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -42,10 +43,15 @@ export class NewBetailPage implements OnInit {
       Origine: new FormControl(null, {
         updateOn: "blur",
         validators: [Validators.required]
+      }),
+      Location:new FormControl(null, {
+        validators: [Validators.required]
       })
     });
   }
-
+  onLocationPicked(location: PlaceLocation) {
+    this.form.patchValue({ Location: location });
+  }
   onCreateBetail() {
     if (!this.form.valid) {
       return;
@@ -65,11 +71,14 @@ export class NewBetailPage implements OnInit {
             this.form.value.Poids,
 
             this.form.value.Race,
-            this.form.value.Propri
+            this.form.value.Propri,
+            this.form.value.Location
+
           );
         }, 1500);
       });
 
   }
+ 
   
 }

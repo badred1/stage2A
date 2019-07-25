@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Plugins, Capacitor, AppState } from '@capacitor/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -19,8 +20,9 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      if (Capacitor.isPluginAvailable('SplashScreen')) {
+        Plugins.SplashScreen.hide();
+      }
     });
   }
 }

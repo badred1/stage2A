@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LocationPickerComponent } from './location-picker.component';
+import { LocationV2Component } from './location-v2.component';
 
-describe('LocationPickerComponent', () => {
-  let component: LocationPickerComponent;
-  let fixture: ComponentFixture<LocationPickerComponent>;
+describe('LocationV2Component', () => {
+  let component: LocationV2Component;
+  let fixture: ComponentFixture<LocationV2Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LocationPickerComponent ],
+      declarations: [ LocationV2Component ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LocationPickerComponent);
+    fixture = TestBed.createComponent(LocationV2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

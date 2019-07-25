@@ -1,20 +1,22 @@
+import { LocationV2Component } from './pickers/location-v2/location-v2.component';
+import { MapmodV2Component } from './mapmod-v2/mapmod-v2.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
-import { LocationPickerComponent } from './pickers/location-picker/location-picker.component';
-// tslint:disable-next-line: quotemark
-import { MapModalComponent } from "./map-modal/map-modal.component";
+
 // import { ImagePickerComponent } from './pickers/image-picker/image-picker.component';
 
 @NgModule({
   declarations: [
-    LocationPickerComponent,
-    MapModalComponent
+   
+    LocationV2Component,
+    MapmodV2Component
     // ImagePickerComponent
   ],
   imports: [CommonModule, IonicModule],
-  exports: [LocationPickerComponent, MapModalComponent, /*ImagePickerComponent*/],
-  entryComponents: [MapModalComponent]
+  exports: [LocationV2Component,MapmodV2Component /*ImagePickerComponent*/],
+  entryComponents: [MapmodV2Component]
 })
 export class SharedModule {}
