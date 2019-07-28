@@ -1,3 +1,4 @@
+import { MapmodV2Component } from './../../shared/mapmod-v2/mapmod-v2.component';
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BeteService } from "src/app/bete.service";
@@ -5,7 +6,9 @@ import { Bete } from "../bete.model";
 import {
   AlertController,
   PopoverController,
-  LoadingController
+  LoadingController,
+  ModalController
+
 } from "@ionic/angular";
 import { VenteComponent } from "../vente/vente.component";
 import { Subscription } from 'rxjs';
@@ -20,6 +23,7 @@ export class BeteDetailPage implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(
+    private modalCtrl: ModalController,
     private activatedRoute: ActivatedRoute,
     private beteService: BeteService,
     private router: Router,
@@ -37,9 +41,12 @@ export class BeteDetailPage implements OnInit, OnDestroy {
       const beteId = paramMap.get("beteId");
       this.sub = this.beteService.getBete(beteId).subscribe(bete => {
         this.beteItem = bete;
+        console.log(this.beteItem.imgURL+"la bete")
       });
     });
   }
+
+
 
   // onDeleteBete() {
   //   this.alertController
@@ -123,7 +130,24 @@ export class BeteDetailPage implements OnInit, OnDestroy {
   //       alertEl.present();
   //     });
   // }
-
+  onShowFullMap() {
+    this.modalCtrl
+      .create({
+        component: MapmodV2Component,
+        componentProps: {
+          center: {
+            lat: this.beteItem.location.lat,
+            lng: this.beteItem.location.lng
+          },
+          selectable: false,
+          closeButtonText: 'Close',
+          title: this.beteItem.location.address
+        }
+      })
+      .then(modalEl => {
+        modalEl.present();
+      });
+  }
   ngOnDestroy() {
     if (this.sub) {
       this.sub.unsubscribe();

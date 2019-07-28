@@ -1,13 +1,12 @@
-import { PlaceLocation } from './../location.model';
+import { PlaceLocation } from "./../location.model";
 import { BeteService } from "./../../bete.service";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { LoadingController } from "@ionic/angular";
-import { Router } from '@angular/router';
-
+import { Router } from "@angular/router";
 
 function base64toBlob(base64Data, contentType) {
-  contentType = contentType || '';
+  contentType = contentType || "";
   const sliceSize = 1024;
   const byteCharacters = window.atob(base64Data);
   const bytesLength = byteCharacters.length;
@@ -26,7 +25,6 @@ function base64toBlob(base64Data, contentType) {
   }
   return new Blob(byteArrays, { type: contentType });
 }
-
 
 @Component({
   selector: "app-new-betail",
@@ -68,20 +66,20 @@ export class NewBetailPage implements OnInit {
         updateOn: "blur",
         validators: [Validators.required]
       }),
-      Location:new FormControl(null, {
+      Location: new FormControl(null, {
         validators: [Validators.required]
       }),
       image: new FormControl(null)
-
     });
   }
   onLocationPicked(location: PlaceLocation) {
     this.form.patchValue({ Location: location });
   }
   onCreateBetail() {
-    if (!this.form.valid|| !this.form.get('image').value) {
+    if (!this.form.valid || !this.form.get("image").value) {
       return;
     }
+    console.log(this.form.value);
     this.loadingCtrl
       .create({
         keyboardClose: true,
@@ -99,20 +97,20 @@ export class NewBetailPage implements OnInit {
             this.form.value.image,
             this.form.value.Location
           )
-          .subscribe(() => {
+          .subscribe(bete => {
             loadingEl.dismiss();
             this.form.reset();
-            this.router.navigate(['/betail']);
+            this.router.navigate(["/betail"]);
           });
       });
   }
   onImagePicked(imageData: string | File) {
     let imageFile;
-    if (typeof imageData === 'string') {
+    if (typeof imageData === "string") {
       try {
         imageFile = base64toBlob(
-          imageData.replace('data:image/jpeg;base64,', ''),
-          'image/jpeg'
+          imageData.replace("data:image/jpeg;base64,", ""),
+          "image/jpeg"
         );
       } catch (error) {
         console.log(error);
@@ -121,8 +119,8 @@ export class NewBetailPage implements OnInit {
     } else {
       imageFile = imageData;
     }
+    console.log(imageData);
+    console.log(imageFile);
     this.form.patchValue({ image: imageFile });
   }
- 
-  
 }
