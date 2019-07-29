@@ -9,8 +9,18 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .popover_class {
     --min-height: 120px;
     --min-width: 300px;
+}
+
+.RacePicker {
+    // .picker-opt-selected {
+    //     color: rgb(76, 48, 238);
+    // }
+    .cancelBtnPick {
+        color: red; 
+    }
 }

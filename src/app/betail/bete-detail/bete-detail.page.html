@@ -29,6 +29,12 @@
         <ion-list>
           <ion-item>
             <div class="ion-text-start">
+              <strong>Type :</strong>
+              {{ beteItem.origine }}
+            </div>
+          </ion-item>
+          <ion-item>
+            <div class="ion-text-start">
               <strong>Race :</strong>
               {{ beteItem.race }}
             </div>
@@ -53,14 +59,8 @@
           </ion-item>
           <ion-item>
             <div class="ion-text-start">
-              <strong>Origine :</strong>
-              {{ beteItem.origine }}
-            </div>
-          </ion-item>
-          <ion-item>
-            <div class="ion-text-start">
               <strong>location</strong>
-              {{ beteItem.location.address}}
+              {{ beteItem.location.address }}
             </div>
           </ion-item>
         </ion-list>
@@ -91,11 +91,13 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="start">
-      <ion-fab-button color="success" (click)="onSell()" ><ion-icon name="logo-usd"></ion-icon
+      <ion-fab-button color="success" (click)="onSell()"
+        ><ion-icon name="logo-usd"></ion-icon
       ></ion-fab-button>
     </ion-fab-list>
     <ion-fab-list side="end">
-      <ion-fab-button color="danger" (click)="onKill()"><ion-icon name="power"></ion-icon
+      <ion-fab-button color="danger" (click)="onKill()"
+        ><ion-icon name="power"></ion-icon
       ></ion-fab-button>
     </ion-fab-list>
   </ion-fab>

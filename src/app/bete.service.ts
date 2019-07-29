@@ -21,7 +21,7 @@ export class BeteService {
     {
       reference: "r1",
       categorie: null,
-      origine: "Casablanca",
+      origine: "Ovin",
       imgURL:
         "https://mcetv.fr/wp-content/uploads/2016/11/Bordeaux-un-homme-tu%C3%A9-par-un-mouton-agressif-grande.jpg",
       age: "8 ans",
@@ -33,7 +33,7 @@ export class BeteService {
     {
       reference: "r2",
       categorie: null,
-      origine: "Rabat",
+      origine: "Bovin",
       imgURL:
         "https://www.lobservateur.fr/wp-content/uploads/2018/05/b%C5%93uf.jpg",
       age: "7 ans",
@@ -45,7 +45,7 @@ export class BeteService {
     {
       reference: "r3",
       categorie: null,
-      origine: "Beni-mellal",
+      origine: "Ovin",
       imgURL:
         "https://www.rustica.fr//images/ouv-chevre-ch120608-060-1435746972-l750-h512.jpg",
       age: "3 ans",
@@ -57,7 +57,7 @@ export class BeteService {
     {
       reference: "r4",
       categorie: null,
-      origine: "Oujda",
+      origine: "Bovin",
       imgURL:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/HF_in_der_Rh%C3%B6n_auf_der_Weide.jpg/1200px-HF_in_der_Rh%C3%B6n_auf_der_Weide.jpg",
       age: "12ans",
@@ -69,7 +69,7 @@ export class BeteService {
     {
       reference: "r5",
       categorie: null,
-      origine: "Casablanca",
+      origine: "Bovin",
       imgURL: "https://cheval.quebec/Image/Le-Cheval/DSCN3038.JPG",
       age: "15 ans",
       poids: "100kg",
@@ -105,12 +105,14 @@ export class BeteService {
     poids: string,
     race: string,
     proprietaire: string,
+    imgUrl:string,
     location:PlaceLocation
   ) {
     let newBete: Bete;
-    const imgUrl =
+    /*const imgUrl =
       "https://www.rustica.fr//images/ouv-chevre-ch120608-060-1435746972-l750-h512.jpg";
-    newBete = new Bete(
+    */
+      newBete = new Bete(
       Math.random().toString(),
       null,
       origine,
