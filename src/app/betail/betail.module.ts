@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { BetailPage } from './betail.page';
 import { SharedModule } from '../shared/shared.module';
+// import { MatSelectModule } from '@angular/material';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    // MatSelectModule
   ],
   declarations: [BetailPage]
 })
