@@ -12,10 +12,10 @@ import { PlaceLocation } from './betail/location.model';
 export class BeteService {
 
   defautlocation : PlaceLocation={
-    lat: -54,
-    lng: 58,
-    address: "xxx",
-   staticMapImageUrl: "xxx"}
+    lat: 33.5731104,
+    lng: -7.589843399999999,
+    address: "actually khedmat x)",
+   staticMapImageUrl: "https://maps.googleapis.com/maps/api/staticmap?center=33.5731104,-7.589843399999999&zoom=14&size=500x300&maptype=roadmap&markers=color:red%7Clabel:Place%7C33.5731104,-7.589843399999999&key=AIzaSyBQe5wCrKjmRviU5tvDq3_kbXSQ2Y88Rd8"}
 
   betes = new BehaviorSubject<Bete[]>([
     {
@@ -128,7 +128,7 @@ export class BeteService {
       delay(1000),
       tap(betes => {
         this.betes.next(betes.concat(newBete));
-        console.log(newBete.location.address)
+        console.log(newBete.location+"tiit")
       })
     );
   }

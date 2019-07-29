@@ -1,3 +1,4 @@
+import { TestComponent } from './test/test.component';
 import { LocationV2Component } from './pickers/location-v2/location-v2.component';
 import { MapmodV2Component } from './mapmod-v2/mapmod-v2.component';
 
@@ -14,10 +15,11 @@ import { ImagePickerComponent } from './pickers/image-picker/image-picker.compon
    
     LocationV2Component,
     MapmodV2Component,
-    ImagePickerComponent
+    ImagePickerComponent,
+    TestComponent
   ],
   imports: [CommonModule, IonicModule],
-  exports: [LocationV2Component,MapmodV2Component,ImagePickerComponent],
+  exports: [LocationV2Component,MapmodV2Component,ImagePickerComponent,TestComponent],
   entryComponents: [MapmodV2Component]
 })
 export class SharedModule {}
