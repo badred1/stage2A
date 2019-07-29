@@ -84,6 +84,7 @@ export class NewBetailPage implements OnInit {
   //}
   onLocationPicked(location: PlaceLocation) {
     this.form.patchValue({ Location: location });
+    console.log(location.staticMapImageUrl);
   }
   onCreateBetail() {
     if (!this.form.valid || !this.form.get("image").value) {

@@ -3,19 +3,19 @@ import { Bete } from "./betail/bete.model";
 
 import { BehaviorSubject } from "rxjs";
 import { take, map, tap, delay } from "rxjs/operators";
-import { PlaceLocation } from './betail/location.model';
-
+import { PlaceLocation } from "./betail/location.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class BeteService {
-
-  defautlocation : PlaceLocation={
+  defautlocation: PlaceLocation = {
     lat: -54,
     lng: 58,
-    address: "xxx",
-   staticMapImageUrl: "xxx"}
+    address: "27 Avenue Youssef Ben Tachfin,Rabat,Maroc",
+    staticMapImageUrl:
+      "https://maps.googleapis.com/maps/api/staticmap?center=33.983451699999996,-6.8675251&zoom=14&size=500x300&maptype=roadmap&markers=color:red%7Clabel:Place%7C34.015156948062696,-6.832916736602783&key=AIzaSyBQe5wCrKjmRviU5tvDq3_kbXSQ2Y88Rd8"
+  };
 
   betes = new BehaviorSubject<Bete[]>([
     {
@@ -28,7 +28,7 @@ export class BeteService {
       poids: "50kg",
       proprietaire: "XXX",
       race: "Mouton",
-      location:this.defautlocation
+      location: this.defautlocation
     },
     {
       reference: "r2",
@@ -40,7 +40,7 @@ export class BeteService {
       poids: "100kg",
       proprietaire: "XXX",
       race: "Boeuf",
-      location:this.defautlocation
+      location: this.defautlocation
     },
     {
       reference: "r3",
@@ -52,7 +52,7 @@ export class BeteService {
       poids: "30kg",
       proprietaire: "XXX",
       race: "chevre",
-      location:this.defautlocation
+      location: this.defautlocation
     },
     {
       reference: "r4",
@@ -64,7 +64,7 @@ export class BeteService {
       poids: "120kg",
       proprietaire: "XXX",
       race: "Vache",
-      location:this.defautlocation
+      location: this.defautlocation
     },
     {
       reference: "r5",
@@ -75,7 +75,7 @@ export class BeteService {
       poids: "100kg",
       proprietaire: "XXX",
       race: "Cheval",
-      location:this.defautlocation
+      location: this.defautlocation
     }
   ]);
 
@@ -94,25 +94,28 @@ export class BeteService {
     );
   }
 
-  // deleteBete(beteId: string) {
-  //   this.betes = this.betes.filter(bete => {
-  //     return bete.reference !== beteId;
-  //   });
-  // }
+  deleteBete(beteId: string) {
+    return this.betes.pipe(
+      take(1),
+      tap(betes =>{
+        this.betes.next(betes.filter(b => b.reference !== beteId));
+      })
+    )
+  }
   addBete(
     origine: string,
     age: string,
     poids: string,
     race: string,
     proprietaire: string,
-    imgUrl:string,
-    location:PlaceLocation
+    imgUrl: string,
+    location: PlaceLocation
   ) {
     let newBete: Bete;
     /*const imgUrl =
       "https://www.rustica.fr//images/ouv-chevre-ch120608-060-1435746972-l750-h512.jpg";
     */
-      newBete = new Bete(
+    newBete = new Bete(
       Math.random().toString(),
       null,
       origine,
@@ -128,7 +131,7 @@ export class BeteService {
       delay(1000),
       tap(betes => {
         this.betes.next(betes.concat(newBete));
-        console.log(newBete.location.address)
+        console.log(newBete.location.address);
       })
     );
   }
@@ -141,7 +144,7 @@ export class BeteService {
     race: string,
     proprietaire: string,
     imgURL: string,
-    location:PlaceLocation
+    location: PlaceLocation
   ) {
     return this.betes.pipe(
       take(1),
