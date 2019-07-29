@@ -18,7 +18,7 @@ import { environment } from "src/environments/environment";
 })
 export class MapmodV2Component implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("map") mapElementRef: ElementRef;
-  @Input() center = { lat: -34.397, lng: 150.644 };
+  @Input() center = { lat: 34.013, lng: -6.832 };
   @Input() selectable = true;
   @Input() closeButtonText = "Cancel";
   @Input() title = "Pick Location";
