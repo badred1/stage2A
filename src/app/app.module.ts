@@ -14,7 +14,7 @@ import { AppRoutingModule } from "./app-routing.module";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,SharedModule],
+  imports: [BrowserModule, HttpClientModule,IonicModule.forRoot(), AppRoutingModule,HttpClientModule,SharedModule],
   providers: [
     StatusBar,
     SplashScreen,

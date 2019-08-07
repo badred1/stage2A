@@ -23,9 +23,15 @@
             </mat-form-field>
       </ion-col>
     </ion-row> -->
-    <ion-row no-padding>
+    <div text-center *ngIf="isLoading">
+      <ion-spinner></ion-spinner>
+    </div>
+    <p text-center *ngIf="!isLoading && betes.length <= 0">
+      pas de betes trouvees
+    </p>
+    <ion-row no-padding *ngIf="!isLoading && betes.length > 0">
       <ion-col size-sm="6" offset-sm="3" no-padding>
-        <ion-searchbar showCancelButton="focus" debounce="500" ></ion-searchbar>
+        <ion-searchbar showCancelButton="focus" debounce="500"></ion-searchbar>
         <ion-list>
           <ion-item-sliding *ngFor="let bete of betes; let i = index" #slide>
             <ion-item [routerLink]="['/betail', bete.reference]" lines="none">
@@ -34,23 +40,21 @@
               </ion-avatar>
               <ion-label> {{ bete.reference }}</ion-label> -->
               <ion-card>
-                  <ion-card-header>
-                    <ion-item lines="none" detail="true">
-                      <ion-avatar slot="start">
-                          <ion-img [src]="iconesToLoad[i]"></ion-img>
-                        </ion-avatar>
-                        <ion-label> {{ bete.reference }}</ion-label>
-                      </ion-item>
-                    <!-- <ion-card-title>{{ bete.reference }}</ion-card-title>
+                <ion-card-header>
+                  <ion-item lines="none" detail="true">
+                    <ion-avatar slot="start">
+                      <ion-img [src]="iconesToLoad[i]"></ion-img>
+                    </ion-avatar>
+                    <ion-label> {{ bete.reference }}</ion-label>
+                  </ion-item>
+                  <!-- <ion-card-title>{{ bete.reference }}</ion-card-title>
                     <ion-card-subtitle>{{ bete.origine }}</ion-card-subtitle> -->
-                  </ion-card-header>
-                
-                  <ion-card-content>
-                   {{bete.origine}} | {{bete.poids}} | {{bete.age}}
-                  </ion-card-content>
-                </ion-card>
-                
-                
+                </ion-card-header>
+
+                <ion-card-content>
+                  {{ bete.origine }} | {{ bete.poids }} | {{ bete.age }}
+                </ion-card-content>
+              </ion-card>
             </ion-item>
             <ion-item-options>
               <ion-item-option
@@ -64,7 +68,6 @@
         </ion-list>
       </ion-col>
     </ion-row>
-    
   </ion-grid>
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button color="primary">

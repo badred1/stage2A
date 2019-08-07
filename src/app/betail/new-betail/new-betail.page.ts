@@ -52,19 +52,20 @@ export class NewBetailPage implements OnInit {
     this.origines = ["bauvin", "ovin"];
     this.form = new FormGroup({
       Race: new FormControl(null, {
-        updateOn: "blur",
-        validators: [Validators.required]
+        
+        validators: [Validators.required],
+       
       }),
       Age: new FormControl(null, {
-        updateOn: "blur",
+   
         validators: [Validators.required]
       }),
       Poids: new FormControl(null, {
-        updateOn: "blur",
+       
         validators: [Validators.required]
       }),
       Propri: new FormControl(null, {
-        updateOn: "blur",
+    
         validators: [Validators.required]
       }),
       Origine: new FormControl(null, {
