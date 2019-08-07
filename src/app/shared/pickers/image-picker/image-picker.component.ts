@@ -7,8 +7,9 @@ import {
   ElementRef,
   Input
 } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import {
-  Plugins,
+  Plugins, 
   Capacitor,
   CameraSource,
   CameraResultType
@@ -23,10 +24,10 @@ export class ImagePickerComponent implements OnInit {
   @ViewChild('filePicker') filePickerRef: ElementRef<HTMLInputElement>;
   @Output() imagePick = new EventEmitter<string | File>();
   @Input() showPreview = false;
-  selectedImage: string;
+  selectedImage: any;
   usePicker = false;
 
-  constructor(private platform: Platform) {}
+  constructor(private platform: Platform,private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     console.log('Mobile:', this.platform.is('mobile'));
@@ -56,8 +57,9 @@ export class ImagePickerComponent implements OnInit {
       resultType: CameraResultType.Base64
     })
       .then(image => {
-        this.selectedImage = image.base64String;
-        this.imagePick.emit(image.base64String);
+        this.selectedImage = 'data:image/jpeg;base64,'+image.base64String; //this.sanitizer.bypassSecurityTrustUrl(image&&image.base64String)
+        // image.base64String;
+        this.imagePick.emit(this.selectedImage);
       })
       .catch(error => {
         console.log(error);
