@@ -132,12 +132,23 @@ export class BeteService {
   }
 
   deleteBete(beteId: string) {
-    return this.betes.pipe(
+    /*return this.betes.pipe(
       take(1),
       tap(betes => {
         this.betes.next(betes.filter(b => b.reference !== beteId));
       })
-    );
+    );*/
+    return this.http
+      .delete(`https://stage2a-f4c65.firebaseio.com/betes/${beteId}.json`)
+      .pipe(
+        switchMap(() => {
+          return this.betes;
+        }),
+        take(1),
+        tap(betes => {
+          this.betes.next(betes.filter(b => b.reference !== beteId));
+        })
+      );
   }
   addBete(
     origine: string,
@@ -206,8 +217,8 @@ export class BeteService {
     imgURL: string,
     location: PlaceLocation
   ) {
-    let updatedBetes:Bete[]
-   return this.betes.pipe(
+    let updatedBetes: Bete[];
+    return this.betes.pipe(
       take(1),
       switchMap(betes => {
         const updatedBeteIndex = betes.findIndex(
@@ -230,15 +241,10 @@ export class BeteService {
           `https://stage2a-f4c65.firebaseio.com/betes/${reference}.json`,
           { ...updatedBetes[updatedBeteIndex], id: null }
         );
-      }),tap(
-        () => {
-          this.betes.next(updatedBetes);
-
-        }
-        
-      )
+      }),
+      tap(() => {
+        this.betes.next(updatedBetes);
+      })
     );
-
-
   }
 }
