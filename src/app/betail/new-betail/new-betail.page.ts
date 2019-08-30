@@ -323,6 +323,7 @@ export class NewBetailPage implements OnInit {
           suffix: "ans",
           name: "ages ovins ans",
           options: [
+            { text: "0", value: "0" },
             { text: "1", value: "A" },
             { text: "2", value: "B" },
             { text: "3", value: "C" },
@@ -374,6 +375,7 @@ export class NewBetailPage implements OnInit {
           suffix: "ans",
           name: "ages bovins ans",
           options: [
+            { text: "0", value: "0" },
             { text: "1", value: "A" },
             { text: "2", value: "B" },
             { text: "3", value: "C" },

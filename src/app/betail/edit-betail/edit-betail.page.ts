@@ -60,32 +60,31 @@ export class EditBetailPage implements OnInit, OnDestroy {
         });
       this.form = new FormGroup({
         Nom: new FormControl(this.beteItem.reference, {
-          updateOn: "blur",
-          validators: [Validators.required]
+          // updateOn: "blur",
         }),
         Race: new FormControl(this.beteItem.race, {
-          updateOn: "blur",
+          // updateOn: "blur",
           validators: [Validators.required]
         }),
         Age: new FormControl(this.beteItem.age, {
-          updateOn: "blur",
+          // updateOn: "blur",
           validators: [Validators.required]
         }),
         Poids: new FormControl(this.beteItem.poids, {
-          updateOn: "blur",
+          // updateOn: "blur",
           validators: [Validators.required]
         }),
         Propri: new FormControl(this.beteItem.proprietaire, {
-          updateOn: "blur",
+          // updateOn: "blur",
           validators: [Validators.required]
         }),
         Origine: new FormControl(this.beteItem.origine, {
-          updateOn: "blur",
+          // updateOn: "blur",
           validators: [Validators.required]
         }),
-        Location: new FormControl(null, {
-          validators: [Validators.required]
-        })
+        // Location: new FormControl(null, {
+        //   validators: [Validators.required]
+        // })
       });
     });
     this.race = this.beteItem.origine;
@@ -93,11 +92,11 @@ export class EditBetailPage implements OnInit, OnDestroy {
     this.age = this.beteItem.age;
   }
 
-  onLocationPicked(location: PlaceLocation) {
-    this.form.patchValue({ Location: location });
-  }
+  // onLocationPicked(location: PlaceLocation) {
+  //   this.form.patchValue({ Location: location });
+  // }
   onEditBetail() {
-    if (!this.form.valid || !this.form.get("image").value) {
+    if (!this.form.valid) {
       return;
     }
     this.loadingCtrl
@@ -108,14 +107,15 @@ export class EditBetailPage implements OnInit, OnDestroy {
       .then(loadingEl => {
         loadingEl.present();
         this.beteService
-          .addBete(
+          .updateBete(
+            this.beteItem.reference,
             this.form.value.Origine,
             this.form.value.Age,
             this.form.value.Poids,
             this.form.value.Race,
             this.form.value.Propri,
-            this.form.value.image,
-            this.form.value.Location
+            this.beteItem.imgURL,
+            this.beteItem.location
           )
           .subscribe(() => {
             loadingEl.dismiss();
@@ -124,23 +124,23 @@ export class EditBetailPage implements OnInit, OnDestroy {
           });
       });
   }
-  onImagePicked(imageData: string | File) {
-    let imageFile;
-    if (typeof imageData === "string") {
-      try {
-        imageFile = base64toBlob(
-          imageData.replace("data:image/jpeg;base64,", ""),
-          "image/jpeg"
-        );
-      } catch (error) {
-        console.log(error);
-        return;
-      }
-    } else {
-      imageFile = imageData;
-    }
-    this.form.patchValue({ image: imageFile });
-  }
+  // onImagePicked(imageData: string | File) {
+  //   let imageFile;
+  //   if (typeof imageData === "string") {
+  //     try {
+  //       imageFile = base64toBlob(
+  //         imageData.replace("data:image/jpeg;base64,", ""),
+  //         "image/jpeg"
+  //       );
+  //     } catch (error) {
+  //       console.log(error);
+  //       return;
+  //     }
+  //   } else {
+  //     imageFile = imageData;
+  //   }
+  //   this.form.patchValue({ image: imageFile });
+  // }
 
   async showBasicPickerRace() {
     let optionPicked: string = this.form.value.Origine;
@@ -329,6 +329,7 @@ export class EditBetailPage implements OnInit, OnDestroy {
           suffix: "ans",
           name: "ages ovins ans",
           options: [
+            { text: "0", value: "0" },
             { text: "1", value: "A" },
             { text: "2", value: "B" },
             { text: "3", value: "C" },
@@ -347,6 +348,7 @@ export class EditBetailPage implements OnInit, OnDestroy {
           suffix: "mois",
           name: "ages ovins mois",
           options: [
+            { text: "0", value: "0" },
             { text: "1", value: "A" },
             { text: "2", value: "B" },
             { text: "3", value: "C" },

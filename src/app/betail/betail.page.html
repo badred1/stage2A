@@ -45,14 +45,15 @@
                     <ion-avatar slot="start">
                       <ion-img [src]="iconesToLoad[i]"></ion-img>
                     </ion-avatar>
-                    <ion-label> {{ bete.reference }}</ion-label>
+                    <ion-label class="lab"> {{ bete.reference }}</ion-label>
                   </ion-item>
                   <!-- <ion-card-title>{{ bete.reference }}</ion-card-title>
                     <ion-card-subtitle>{{ bete.origine }}</ion-card-subtitle> -->
+                    <ion-card-title>{{ bete.race }} de <span class="bete_prop">{{ bete.proprietaire }} </span></ion-card-title>
                 </ion-card-header>
 
                 <ion-card-content>
-                  {{ bete.origine }} | {{ bete.poids }} | {{ bete.age }}
+                  <span class="bete_origine">{{ bete.origine }} </span>| <span class="bete_poids">{{ bete.poids }} </span> | <span class="bete_age">{{ bete.age }} </span>
                 </ion-card-content>
               </ion-card>
             </ion-item>
