@@ -1,12 +1,40 @@
 // ion-content{
 //     --background:url(https://i.pinimg.com/originals/72/e8/4c/72e84c78a49ce4deb06a73d55bdff1f7.jpg);
 // }
+$black: #000 !default;
+
+$border-radius: 0.25rem !default;
+$box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
+
 ion-item{
     --background-focused:rgb(37, 92, 192);
 }
 ion-card-header{
     padding:0px;
+    ion-card-title{
+        text-align: center;
+    }
+
 }
 ion-card {
     width: 100%;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+}
+ion-card-content{
+    text-align: center;
+}
+
+.bete_prop{
+    color: #7044ff;
+}
+.bete_age{
+    color: #f04141;
+}
+.bete_poids{
+
+    color:#0cd1e8;
+}
+.lab{
+    padding:0px 0px 0px 20px;
 }

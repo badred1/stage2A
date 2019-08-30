@@ -52,19 +52,20 @@ export class NewBetailPage implements OnInit {
     this.origines = ["bauvin", "ovin"];
     this.form = new FormGroup({
       Race: new FormControl(null, {
-        updateOn: "blur",
-        validators: [Validators.required]
+        
+        validators: [Validators.required],
+       
       }),
       Age: new FormControl(null, {
-        updateOn: "blur",
+   
         validators: [Validators.required]
       }),
       Poids: new FormControl(null, {
-        updateOn: "blur",
+       
         validators: [Validators.required]
       }),
       Propri: new FormControl(null, {
-        updateOn: "blur",
+    
         validators: [Validators.required]
       }),
       Origine: new FormControl(null, {
@@ -90,6 +91,7 @@ export class NewBetailPage implements OnInit {
     if (!this.form.valid || !this.form.get("image").value) {
       return;
     }
+    console.log(this.form.value);
     this.loadingCtrl
       .create({
         keyboardClose: true,
@@ -107,7 +109,7 @@ export class NewBetailPage implements OnInit {
             this.form.value.image,
             this.form.value.Location
           )
-          .subscribe(() => {
+          .subscribe(bete => {
             loadingEl.dismiss();
             this.form.reset();
             this.router.navigate(["/betail"]);
@@ -129,6 +131,8 @@ export class NewBetailPage implements OnInit {
     } else {
       imageFile = imageData;
     }
+    console.log(imageData);
+    console.log(imageFile);
     this.form.patchValue({ image: imageFile });
   }
 
@@ -319,6 +323,7 @@ export class NewBetailPage implements OnInit {
           suffix: "ans",
           name: "ages ovins ans",
           options: [
+            { text: "0", value: "0" },
             { text: "1", value: "A" },
             { text: "2", value: "B" },
             { text: "3", value: "C" },
@@ -370,6 +375,7 @@ export class NewBetailPage implements OnInit {
           suffix: "ans",
           name: "ages bovins ans",
           options: [
+            { text: "0", value: "0" },
             { text: "1", value: "A" },
             { text: "2", value: "B" },
             { text: "3", value: "C" },

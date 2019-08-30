@@ -1,3 +1,4 @@
+import { MapmodV2Component } from './../../shared/mapmod-v2/mapmod-v2.component';
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BeteService } from "src/app/bete.service";
@@ -10,7 +11,6 @@ import {
 } from "@ionic/angular";
 import { VenteComponent } from "../vente/vente.component";
 import { Subscription } from "rxjs";
-import { MapmodV2Component } from 'src/app/shared/mapmod-v2/mapmod-v2.component';
 
 @Component({
   selector: "app-bete-detail",
@@ -22,13 +22,13 @@ export class BeteDetailPage implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(
+    private modalCtrl: ModalController,
     private activatedRoute: ActivatedRoute,
     private beteService: BeteService,
     private router: Router,
     private alertController: AlertController,
     private popoverController: PopoverController,
     private loadingCtrl: LoadingController,
-    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -40,6 +40,7 @@ export class BeteDetailPage implements OnInit, OnDestroy {
       const beteId = paramMap.get("beteId");
       this.sub = this.beteService.getBete(beteId).subscribe(bete => {
         this.beteItem = bete;
+        console.log(this.beteItem.imgURL+"la bete")
       });
     });
   }
@@ -145,7 +146,6 @@ export class BeteDetailPage implements OnInit, OnDestroy {
         modalEl.present();
       });
   }
-
   ngOnDestroy() {
     if (this.sub) {
       this.sub.unsubscribe();

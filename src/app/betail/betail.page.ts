@@ -11,6 +11,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./betail.page.scss"]
 })
 export class BetailPage implements OnInit, OnDestroy {
+  isLoading=true;
   betes: Bete[];
   private beteSub: Subscription;
   iconesToLoad: string[] = [];
@@ -18,6 +19,8 @@ export class BetailPage implements OnInit, OnDestroy {
   constructor(private beteService: BeteService, private router: Router) {}
 
   ngOnInit() {
+
+    
     this.beteSub = this.beteService.betes.subscribe(betes => {
       this.betes = betes;
       this.betes.forEach((beteEl, index) => {
@@ -34,9 +37,12 @@ export class BetailPage implements OnInit, OnDestroy {
 
   }
 
-  // ionViewWillEnter() {
-  //   this.betes = this.beteService.getAllBetes();
-  // }
+  ionViewWillEnter() {
+    this.isLoading=true;
+ this.beteService.fetchBetes().subscribe(()=>{
+   this.isLoading=false
+ });
+  }
 
   onAddButton() {
     this.router.navigate(["/new-betail"]);

@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
@@ -13,15 +14,7 @@ import { AppRoutingModule } from "./app-routing.module";
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule,
-    // BrowserAnimationsModule,
-    // MatButtonModule,
-    // MatCheckboxModule
-  ],
+  imports: [BrowserModule, HttpClientModule,IonicModule.forRoot(), AppRoutingModule,HttpClientModule,SharedModule],
   providers: [
     StatusBar,
     SplashScreen,

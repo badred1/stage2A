@@ -6,6 +6,7 @@
     <ion-title>{{ beteItem.reference }}</ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="onDeleteBete()">
+         
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -72,6 +73,7 @@
               [src]="beteItem.location.staticMapImageUrl"
             ></ion-img>
           </ion-item>
+         
         </ion-list>
       </ion-col>
     </ion-row>

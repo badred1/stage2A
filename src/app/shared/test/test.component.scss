@@ -1,0 +1,140 @@
+// ion-button.a {
+//   width: 200px;
+//   height:50px;
+//    background-color:red;
+//   //position:fixed;
+//   top: 50px;
+//   left: 120px;
+//   right: 820px;
+//   bottom: 40px;
+
+//   }
+
+//   ion-button.b {
+
+//   width: 200px;
+//   height:50px;
+//   background-color:blue;
+//   position:fixed;
+//   top: 20%;
+//   left: 10%px;
+//   right: 50%;
+//   bottom:30%;
+
+//   }
+//   ion-button.c {
+//   width: 200px;
+//   height:50px;
+//    background-color:green;
+//   position:fixed;
+//   top: 500px;
+//   left: 10px;
+//   right: 250px;
+//   bottom: 4px;
+
+//   }
+//   ion-button.d {
+//   width: 200px;
+//   height:50px;
+//    background-color:yellow;
+//   position:fixed;
+//   top: 420px;
+//   left: 20px;
+//   right: 80px;
+//   bottom: 40px;
+
+//   }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+body {
+  height: 100vh;
+  background: #151519;
+}
+button {
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+  background: none;
+  color: #ccc;
+  width: 240px;
+  height: 80px;
+  // border: 1px solid #338033;
+  font-size: 18px;
+  border-radius: 4px;
+  transition: 0.6s;
+  overflow: hidden;
+}
+button.a {
+  left: 45%;
+  bottom: 20%;
+  border: 1px solid #338033;
+}
+button.a:hover {
+  background: #338033;
+  cursor: pointer;
+}
+
+button.b {
+  left: 65%;
+  bottom: 50%;
+  border: 1px solid #335780;
+}
+button.b:hover {
+  background: #335780;
+  cursor: pointer;
+}
+
+button.c {
+  left: 20%;
+  bottom: 60%;
+  border: 1px solid #5e338f;
+}
+button.c:hover {
+  background: #5e338f;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+button::before {
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.5;
+  filter: blur(30px);
+  transform: translateX(-130px) skewX(-15deg);
+}
+
+button::after {
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  width: 30px;
+  height: 100%;
+  left: 30px;
+  top: 0;
+  opacity: 0;
+  filter: blur(30px);
+  transform: translate(-100px) scaleX(-15deg);
+}
+
+button:hover:before {
+  transform: translateX(300px) skewX(-15deg);
+  opacity: 0.6;
+  transition: 0.7s;
+}
+
+button:hover:after {
+  transform: translateX(300px) skewX(-15deg);
+  opacity: 1;
+  transition: 0.7s;
+}
